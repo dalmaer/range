@@ -8,8 +8,8 @@
     "url": "https://github.com/dalmaer/range.git"
   },
   "engines": {
-    "node": "0.6.x",
-    "npm":  "1.1.x"
+    "node": ">=0.6",
+    "npm":  ">=1.1"
   },
   "scripts": {
     "test": "mocha"
