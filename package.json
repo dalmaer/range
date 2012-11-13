@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/dalmaer/range.git"
   },
+  "licenses": [{
+    "name": "MIT",
+    "url": "http://github.com/dalmaer/range/raw/master/LICENSE"
+  }],
   "main": "./range.js",
   "engines": {
     "node": ">=0.6",
