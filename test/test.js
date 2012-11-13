@@ -35,7 +35,7 @@ describe('range', function() {
     }).should.eql([1, 3]);
   });
 
-  it('a simple range with the minimal info (a to)', function() {
+  it('a simple range with the minimal info (a "to", prooves default "from" is 1)', function() {
     range.integerRange({
       to: 3
     }).should.eql([1, 2, 3]);
@@ -57,6 +57,12 @@ describe('range', function() {
        from: 2,
        to: 1
       });
+    }).should['throw']();
+  });
+
+  it('a range where the there is no "to"', function() {
+    (function() {
+      range.integerRange({});
     }).should['throw']();
   });
 
