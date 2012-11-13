@@ -104,4 +104,36 @@ describe('range', function() {
     }).should.eql([-4, -3]);
   });
 
+  //
+  // String ranges
+  //
+
+  it('a simple string range', function() {
+    range.integerRange('1..4').should.eql([1, 2, 3, 4]);
+  });
+
+  it('a string range with commas', function() {
+    range.integerRange('1..4,5,7..8').should.eql([1, 2, 3, 4, 5, 7, 8]);
+  });
+
+  it('a string range with commas, spaces, and negative "from"', function() {
+    range.integerRange('1..4, 5, -1..5').should.eql([1, 2, 3, 4, 5, -1, 0, 1, 2, 3, 4, 5]);
+  });
+
+  it('a string range with step "by"', function() {
+    range.integerRange('1..10 by 2').should.eql([1, 3, 5, 7, 9]);
+  });
+
+  it('a simple error string', function() {
+    (function() {
+      range.integerRange('');
+    }).should['throw']();
+  });
+
+  it('a simple error string with no "to"', function() {
+    (function() {
+      range.integerRange('1..');
+    }).should['throw']();
+  });
+
 });
