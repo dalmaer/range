@@ -7,6 +7,7 @@
     "type": "git",
     "url": "https://github.com/dalmaer/range.git"
   },
+  "main": "./index.js",
   "engines": {
     "node": ">=0.6",
     "npm":  ">=1.1"
