@@ -26,6 +26,15 @@
 //      { from: 20, to: 30 },
 //    ])
 //
+// - Create a range from a string ruleset
+//
+//    integerRange('1,2')
+//    integerRange('1..10')
+//    integerRange('1,3..5,9')
+//    integerRange('1..10 by 2')
+//
+//    Format:  numberOrRange[,numberOrRange]['by' number]
+//
 // Limitations
 //
 // - Positive steps only (from small to large)
@@ -33,9 +42,15 @@
 //
 
 module.exports = {
-  // If we are passed an array or a single range, do your worst
+  // If we are passed an array or a single range (object or string), do your worst
   integerRange: function(range) {
-    return Array.isArray(range) ? integerRanges(range) : integerRange(range);
+    if (Array.isArray(range)) { // [{from:1, to:2}, {from:5, to:9}]
+      return integerRanges(range);
+    } else if (typeof range === 'string') { // '1..3,6,8..12'
+      return integerRanges(rulesFromString(range));
+    } else { // {from:1, to:10, step:2}
+      return integerRange(range);
+    }
   }
 };
 
@@ -84,4 +99,42 @@ function integerRanges(arrayOfRules) {
     range = range.concat(integerRange(rules));
   });
   return range;
+}
+
+function rulesFromString(stringRule) {
+  var rules = [];
+
+  // do a quick check
+  if (!stringRule.match(/\d/)) {
+    throw "I don't see a number (which is required) in the rule. Can you try again? You gave me:\n\t" + stringRule;
+  }
+
+  // Look specifically for a broken range:
+  // "1..aspodj" or "1.."
+  if (stringRule.match(/\d+\s*\.\.\s*[^\d]/) || stringRule.match(/\.$/)) {
+    throw "There is a range that doesn't fit the required format: 'X..Y' (where both are numbers). Can you try again? You gave me:\n\t" + stringRule;
+  }
+
+  // get a step: chop off the " by X"
+  var split = stringRule.split(/\s*by\s*(\d+)/);
+
+  // get the result back (chopped if there was a by X)
+  stringRule = split[0];
+
+  // get a valid step number and leave undefined so we don't pass it in later
+  var step = Number(split[1]) || undefined;
+
+  // split up multiple rules by ","
+  stringRule.split(/\s*,\s*/).forEach(function(rule) {
+    var splitOnDotDot = rule.split(/\s*\.\.\s*/);
+    var newRule = {};
+    newRule.from = Number(splitOnDotDot[0]);
+    newRule.to   = Number(splitOnDotDot[1]) || newRule.from; // if from and to are the same you just have the one item
+    if (step) {
+      newRule.step = step;
+    }
+    rules.push(newRule);
+  });
+
+  return rules;
 }
