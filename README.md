@@ -22,23 +22,23 @@ Options for a range are:
 
     // Syntax: numberOrRange[,numberOrRange][by stepAmount]
 
-    range.integerRange('1..4'); // [1, 2, 3, 4]
+    range.ofIntegers('1..4'); // [1, 2, 3, 4]
 
-    range.integerRange('1..4,5,7..8'); // [1, 2, 3, 4, 5, 7, 8]
+    range.ofIntegers('1..4,5,7..8'); // [1, 2, 3, 4, 5, 7, 8]
 
-    range.integerRange('1..10 by 2'); // [1, 3, 5, 7, 9]
+    range.ofIntegers('1..10 by 2'); // [1, 3, 5, 7, 9]
 
 ## Create a single range from one rule using an Object
 
 
-    range.integerRange({
+    range.ofIntegers({
       from: 1,
       to: 10
     }) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 ## Create a range from multiple rules using an array of Objects
 
-    range.integerRange([
+    range.ofIntegers([
       { from: 1,  to: 10 },
       { from: 20, to: 30 }
     ])

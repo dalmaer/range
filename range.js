@@ -14,24 +14,24 @@
 //
 // - Create a single range from one rule
 //
-//    integerRange({
+//    ofIntegers({
 //      from: 1,
 //      to: 10
 //    }) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 //
 // - Create a range from multiple rules
 //
-//    integerRange([
+//    ofIntegers([
 //      { from: 1,  to: 10 },
 //      { from: 20, to: 30 },
 //    ])
 //
 // - Create a range from a string ruleset
 //
-//    integerRange('1,2')
-//    integerRange('1..10')
-//    integerRange('1,3..5,9')
-//    integerRange('1..10 by 2')
+//    ofIntegers('1,2')
+//    ofIntegers('1..10')
+//    ofIntegers('1,3..5,9')
+//    ofIntegers('1..10 by 2')
 //
 //    Format:  numberOrRange[,numberOrRange]['by' number]
 //
@@ -43,7 +43,7 @@
 
 module.exports = {
   // If we are passed an array or a single range (object or string), do your worst
-  integerRange: function(range) {
+  ofIntegers: function(range) {
     if (Array.isArray(range)) { // [{from:1, to:2}, {from:5, to:9}]
       return integerRanges(range);
     } else if (typeof range === 'string') { // '1..3,6,8..12'
