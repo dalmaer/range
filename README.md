@@ -1,6 +1,8 @@
 range
 =====
 
+[![browser support](http://ci.testling.com/dalmaer/range.png)](http://ci.testling.com/dalmaer/range)
+
 A simple utility module to return Integer series from simple rules.
 
 You can pass in a single range, or multiple ones.
